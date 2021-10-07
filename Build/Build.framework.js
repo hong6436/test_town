@@ -1300,7 +1300,7 @@ function _emscripten_asm_const_ii(code, a0) {
  return ASM_CONSTS[code](a0);
 }
 STATIC_BASE = GLOBAL_BASE;
-STATICTOP = STATIC_BASE + 3127664;
+STATICTOP = STATIC_BASE + 3128560;
 __ATINIT__.push({
  func: (function() {
   __GLOBAL__sub_I_AccessibilityScriptingClasses_cpp();
@@ -3354,12 +3354,28 @@ __ATINIT__.push({
   ___emscripten_environ_constructor();
  })
 });
-var STATIC_BUMP = 3127664;
+var STATIC_BUMP = 3128560;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 var tempDoublePtr = STATICTOP;
 STATICTOP += 16;
 assert(tempDoublePtr % 8 == 0);
+function _CreateUserWithEmailAndPassword(email, password, objectName, callback, fallback) {
+ var parsedEmail = Pointer_stringify(email);
+ var parsedPassword = Pointer_stringify(password);
+ var parsedObjectName = Pointer_stringify(objectName);
+ var parsedCallback = Pointer_stringify(callback);
+ var parsedFallback = Pointer_stringify(fallback);
+ try {
+  firebase.auth().createUserWithEmailAndPassword(parsedEmail, parsedPassword).then((function(unused) {
+   window.unityInstance.SendMessage(parsedObjectName, parsedCallback, "Success: signed up for " + parsedEmail);
+  })).catch((function(error) {
+   window.unityInstance.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+  }));
+ } catch (error) {
+  window.unityInstance.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+ }
+}
 function _JS_Cursor_SetImage(ptr, length) {
  var binary = "";
  for (var i = 0; i < length; i++) binary += String.fromCharCode(HEAPU8[ptr + i]);
@@ -19301,6 +19317,7 @@ Module.asmLibraryArg = {
  "invoke_vjii": invoke_vjii,
  "invoke_vjiiii": invoke_vjiiii,
  "invoke_vjji": invoke_vjji,
+ "_CreateUserWithEmailAndPassword": _CreateUserWithEmailAndPassword,
  "_JS_Cursor_SetImage": _JS_Cursor_SetImage,
  "_JS_Cursor_SetShow": _JS_Cursor_SetShow,
  "_JS_Eval_ClearInterval": _JS_Eval_ClearInterval,
